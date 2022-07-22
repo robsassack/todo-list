@@ -10,7 +10,18 @@
 
 <body>
   <h1>To-Do</h1>
-  <div class="content"></div>
+  <div class="content">
+    <input type="text" name="title" id="title" placeholder="Title">
+    <input type="text" name="desc" id="desc" placeholder="Description">
+    <input type="date" name="dueDate" id="dueDate">
+    <select name="priority" id="priority">
+      <option value="low">Low</option>
+      <option value="med">Medium</option>
+      <option value="high">High</option>
+    </select>
+    <input type="text" name="project" id="project" placeholder="Project">
+    <button type="submit" id="submit">Submit</button>
+  </div>
 </body>
 <script src="main.js"></script>
 
