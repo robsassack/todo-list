@@ -46,7 +46,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Overview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Overview */ \"./src/Overview.js\");\n/* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Project */ \"./src/Project.js\");\n/* harmony import */ var _Todo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Todo */ \"./src/Todo.js\");\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://todo-list/./src/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Overview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Overview */ \"./src/Overview.js\");\n/* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Project */ \"./src/Project.js\");\n/* harmony import */ var _Todo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Todo */ \"./src/Todo.js\");\n\r\n\r\n\r\n\r\ndocument.querySelector(\"#submit\").addEventListener(\"click\", () => {\r\n  let title = document.querySelector(\"#title\").value;\r\n  let desc = document.querySelector(\"#desc\").value;\r\n  let date = Date(document.querySelector(\"#date\"));\r\n  let priority = document.querySelector(\"#priority\").value;\r\n  let project = document.querySelector(\"#project\").value;\r\n  let newTodo = new _Todo__WEBPACK_IMPORTED_MODULE_2__[\"default\"](title, desc, date, priority, project);\r\n  console.log(newTodo);\r\n});\n\n//# sourceURL=webpack://todo-list/./src/main.js?");
 
 /***/ })
 
