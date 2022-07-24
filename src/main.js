@@ -2,7 +2,9 @@ import Overview from "./Overview";
 import Project from "./Project";
 import Todo from "./Todo";
 
-document.querySelector("#submit").addEventListener("click", () => {
+const mainOverview = new Overview();
+
+document.querySelector("#todo-submit").addEventListener("click", () => {
   let title = document.querySelector("#title").value;
   let desc = document.querySelector("#desc").value;
   let date = Date(document.querySelector("#date"));
@@ -10,4 +12,11 @@ document.querySelector("#submit").addEventListener("click", () => {
   let project = document.querySelector("#project").value;
   let newTodo = new Todo(title, desc, date, priority, project);
   console.log(newTodo);
+});
+
+document.querySelector("#project-submit").addEventListener("click", () => {
+  let name = document.querySelector("#project-name");
+  let newProject = new Project(name);
+  mainOverview.projects.push(newProject);
+  console.log(mainOverview);
 });
