@@ -1,5 +1,5 @@
 import Overview from "./Overview";
-import Project from "./Project";
+import Tag from "./Tag";
 import Todo from "./Todo";
 
 const mainOverview = new Overview();
@@ -9,14 +9,14 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
   let desc = document.querySelector("#desc").value;
   let date = Date(document.querySelector("#date"));
   let priority = document.querySelector("#priority").value;
-  let project = document.querySelector("#project").value;
-  let newTodo = new Todo(title, desc, date, priority, project);
+  let tag = document.querySelector("#tag").value;
+  let newTodo = new Todo(title, desc, date, priority, tag);
   console.log(newTodo);
 });
 
-document.querySelector("#project-submit").addEventListener("click", () => {
-  let name = document.querySelector("#project-name");
-  let newProject = new Project(name);
-  mainOverview.projects.push(newProject);
+document.querySelector("#tag-submit").addEventListener("click", () => {
+  let name = document.querySelector("#tag-name");
+  let newTag = new Tag(name);
+  mainOverview.tags.push(newTag);
   console.log(mainOverview);
 });
