@@ -6,12 +6,8 @@ export default class Overview {
   }
 
   addTag(tag) {
-    if (this.tags.length === 0) {
-      console.log("Creating new tag")
-      let newTag = new Tag(tag);
-      this.tags.push(newTag);
-    } else if (this.uniqueTag(tag)) {
-      console.log("Creating new tag - no repeats")
+    if (this.tags.length === 0 || this.uniqueTag(tag)) {
+      // creates new tag if no tags exist or if tag is unique
       let newTag = new Tag(tag);
       this.tags.push(newTag);
     }
@@ -21,10 +17,19 @@ export default class Overview {
     let repeat = true;
     this.tags.forEach(item => {
       if (item.name === tag) {
-        console.log('repeat tag found');
+        // sets flag if repeat tag is found
         repeat = false;
       }
     });
     return repeat;
+  }
+
+  addTodo(title, desc, date, priority, tag) {
+    this.addTag(tag);
+    this.tags.forEach(item => {
+      if (item.name === tag) {
+        item.addTodo(title, desc, date, priority, tag);
+      }
+    });
   }
 }
