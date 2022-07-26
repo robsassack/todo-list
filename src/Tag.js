@@ -10,4 +10,8 @@ export default class Tag {
     let newTodo = new Todo(title, desc, date, priority, tag);
     this.list.push(newTodo);
   }
+
+  getTaskList() {
+    return this.list;
+  }
 }

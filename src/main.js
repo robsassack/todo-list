@@ -10,7 +10,8 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
   let tag = document.querySelector("#tag").value;
 
   mainOverview.addTodo(title, desc, date, priority, tag);
-  console.log(mainOverview);
+
+  mainOverview.printAllTasks();
 });
 
 document.querySelector("#tag-submit").addEventListener("click", () => {

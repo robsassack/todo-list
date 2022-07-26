@@ -32,4 +32,15 @@ export default class Overview {
       }
     });
   }
+
+  printAllTasks() {
+    let todoList = document.querySelector("#todo-list");
+    this.tags.forEach(tag => {
+      tag.getTaskList().forEach(task => {
+        let newTask = document.createElement("li");
+        newTask.innerText = `${task.title} - ${task.desc} - ${task.dueDate} - ${task.priority} - ${task.tag}`;
+        todoList.appendChild(newTask);
+      });
+    });
+  }
 }
