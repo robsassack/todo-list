@@ -11,7 +11,7 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
 
   mainOverview.addTodo(title, desc, date, priority, tag);
 
-  mainOverview.printAllTasks();
+  mainOverview.printAllTodos();
 });
 
 document.querySelector("#tag-submit").addEventListener("click", () => {

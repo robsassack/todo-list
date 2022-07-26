@@ -11,7 +11,7 @@ export default class Tag {
     this.list.push(newTodo);
   }
 
-  getTaskList() {
+  getTodoList() {
     return this.list;
   }
 }

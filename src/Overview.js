@@ -33,13 +33,13 @@ export default class Overview {
     });
   }
 
-  printAllTasks() {
+  printAllTodos() {
     let todoList = document.querySelector("#todo-list");
     this.tags.forEach(tag => {
-      tag.getTaskList().forEach(task => {
-        let newTask = document.createElement("li");
-        newTask.innerText = `${task.title} - ${task.desc} - ${task.dueDate} - ${task.priority} - ${task.tag}`;
-        todoList.appendChild(newTask);
+      tag.getTodoList().forEach(todo => {
+        let newTodo = document.createElement("li");
+        newTodo.innerText = `${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.priority} - ${todo.tag}`;
+        todoList.appendChild(newTodo);
       });
     });
   }
