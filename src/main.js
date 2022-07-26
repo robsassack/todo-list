@@ -10,13 +10,13 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
   let date = Date(document.querySelector("#date"));
   let priority = document.querySelector("#priority").value;
   let tag = document.querySelector("#tag").value;
+
   let newTodo = new Todo(title, desc, date, priority, tag);
   console.log(newTodo);
 });
 
 document.querySelector("#tag-submit").addEventListener("click", () => {
-  let name = document.querySelector("#tag-name");
-  let newTag = new Tag(name);
-  mainOverview.tags.push(newTag);
+  let name = document.querySelector("#tag-name").value;
+  mainOverview.addTag(name);
   console.log(mainOverview);
 });
