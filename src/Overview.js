@@ -35,12 +35,25 @@ export default class Overview {
 
   printAllTodos() {
     let todoList = document.querySelector("#todo-list");
+    todoList.innerText = "";
     this.tags.forEach(tag => {
       tag.getTodoList().forEach(todo => {
         let newTodo = document.createElement("li");
-        newTodo.innerText = `${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.priority} - ${todo.tag}`;
+        newTodo.classList.add(setPriority(todo.priority));
+        newTodo.innerText = `[${todo.priority}] ${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.tag}`;
         todoList.appendChild(newTodo);
       });
     });
+  }
+}
+
+function setPriority(priority) {
+  switch (priority) {
+    case "high":
+      return "high-priority";
+    case "med":
+      return "med-priority";
+    case "low":
+      return "low-priority";
   }
 }

@@ -1,4 +1,5 @@
 import Overview from "./Overview";
+import './style.css';
 
 const mainOverview = new Overview();
 
