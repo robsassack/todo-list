@@ -1,3 +1,15 @@
+#todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.todo-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  list-style: none;
+}
+
 .high-priority {
   color: red;
 }
