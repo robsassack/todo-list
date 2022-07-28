@@ -42,24 +42,29 @@ export default class Overview {
     todoList.innerText = "";
     this.tags.forEach((tag) => {
       tag.getTodoList().forEach((todo) => {
-        // todo item
-        let newTodo = document.createElement("li");
-        newTodo.classList.add("todo-item");
-        newTodo.classList.add(setPriority(todo.priority));
-        newTodo.innerText = `[${todo.priority}] ${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.tag}`;
-
-        // delete button
-        let delButton = document.createElement("button");
-        delButton.classList.add("del-button");
-        delButton.innerText = "X";
-        delButton.addEventListener("click", () => {
-          this.deleteTodo(todo);
-        });
-
-        newTodo.appendChild(delButton);
+        let newTodo = this.generateTodo(todo);
         todoList.appendChild(newTodo);
       });
     });
+  }
+
+  generateTodo(todo) {
+    // todo item
+    let newTodo = document.createElement("li");
+    newTodo.classList.add("todo-item");
+    newTodo.classList.add(setPriority(todo.priority));
+    newTodo.innerText = `[${todo.priority}] ${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.tag}`;
+
+    // delete button
+    let delButton = document.createElement("button");
+    delButton.classList.add("del-button");
+    delButton.innerText = "X";
+    delButton.addEventListener("click", () => {
+      this.deleteTodo(todo);
+    });
+
+    newTodo.appendChild(delButton);
+    return newTodo;
   }
 
   // deletes todo
