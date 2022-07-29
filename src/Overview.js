@@ -66,9 +66,13 @@ export default class Overview {
     separator.disabled = true;
     selector.appendChild(separator);
     this.tags.forEach((tag) => {
-      let tagSelect = document.createElement("option");
-      tagSelect.innerText = tag.name;
-      selector.appendChild(tagSelect);
+      // skip if tag name is blank
+      if (tag.name.trim().length) {
+        let tagSelect = document.createElement("option");
+        tagSelect.innerText = tag.name;
+        tagSelect.value = tag;
+        selector.appendChild(tagSelect);
+      }
     });
     selector.value = currentSelector;
   }
@@ -94,7 +98,10 @@ export default class Overview {
     } else {
       newTodo.classList.remove("todo-done");
     }
-    newTodoTag.innerText = `[${todo.tag}]`;
+    // skip printing tag if blank
+    if (todo.tag.trim().length) {
+      newTodoTag.innerText = `[${todo.tag}]`;
+    }
     newTodoTitle.innerText = `${todo.title}`;
     newTodoDesc.innerText = `${todo.desc}`;
     newTodoDate.innerText = `${todo.dueDate}`;
