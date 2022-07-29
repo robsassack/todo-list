@@ -49,11 +49,35 @@ export default class Overview {
   }
 
   generateTodo(todo) {
+    let todoItem = document.createElement("div");
+    todoItem.classList.add("todo-item");
+
     // todo item
     let newTodo = document.createElement("li");
-    newTodo.classList.add("todo-item");
     newTodo.classList.add(setPriority(todo.priority));
-    newTodo.innerText = `[${todo.priority}] ${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.tag}`;
+    if (todo.done) {
+      newTodo.classList.add("todo-done");
+    } else {
+      newTodo.classList.remove("todo-done");
+    }
+    newTodo.innerText = `${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.tag}`;
+
+    // done status
+    let doneStatus = document.createElement("input");
+    doneStatus.type = "checkbox";
+    doneStatus.checked = todo.done;
+    // change done status if clicking on checkbox or on todo item
+    [ doneStatus, todoItem ].forEach((item) => {
+      item.addEventListener("click", () => {
+        doneStatus.checked = !doneStatus.checked;
+        todo.done = doneStatus.checked;
+        if (doneStatus.checked) {
+          newTodo.classList.add("todo-done");
+        } else {
+          newTodo.classList.remove("todo-done");
+        }
+      });
+    });
 
     // delete button
     let delButton = document.createElement("button");
@@ -63,8 +87,10 @@ export default class Overview {
       this.deleteTodo(todo);
     });
 
-    newTodo.appendChild(delButton);
-    return newTodo;
+    todoItem.appendChild(doneStatus);
+    todoItem.appendChild(newTodo);
+    todoItem.appendChild(delButton);
+    return todoItem;
   }
 
   // deletes todo

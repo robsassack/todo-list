@@ -20,3 +20,5 @@ document.querySelector("#tag-submit").addEventListener("click", () => {
   mainOverview.addTag(name);
   console.log(mainOverview);
 });
+
+mainOverview.printAllTodos();
