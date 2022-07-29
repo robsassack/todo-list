@@ -21,10 +21,4 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
   mainOverview.printAllTodos();
 });
 
-document.querySelector("#tag-submit").addEventListener("click", () => {
-  let name = document.querySelector("#tag-name").value;
-  mainOverview.addTag(name);
-  console.log(mainOverview);
-});
-
 mainOverview.printAllTodos();

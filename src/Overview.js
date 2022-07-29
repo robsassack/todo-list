@@ -46,6 +46,31 @@ export default class Overview {
         todoList.appendChild(newTodo);
       });
     });
+    this.generateDropdown();
+  }
+
+  generateDropdown() {
+    let selector = document.querySelector("#selector");
+    let currentSelector = selector.value;
+    selector.innerText = "";
+    let allTodos = document.createElement("option");
+    allTodos.innerText = "All";
+    allTodos.value = "all";
+    selector.appendChild(allTodos);
+    let todayTodos = document.createElement("option");
+    todayTodos.innerText = "Today";
+    todayTodos.value = "today";
+    selector.appendChild(todayTodos);
+    let separator = document.createElement("option");
+    separator.innerText = "──────────";
+    separator.disabled = true;
+    selector.appendChild(separator);
+    this.tags.forEach((tag) => {
+      let tagSelect = document.createElement("option");
+      tagSelect.innerText = tag.name;
+      selector.appendChild(tagSelect);
+    });
+    selector.value = currentSelector;
   }
 
   generateTodo(todo) {
@@ -121,6 +146,10 @@ export default class Overview {
       tag.getTodoList().forEach((item) => {
         if (item === todo) {
           tag.list.splice(tag.list.indexOf(item), 1);
+        }
+        // remove tag if no todos exist
+        if (tag.list.length === 0) {
+          this.tags.splice(this.tags.indexOf(tag), 1);
         }
       });
     });
