@@ -52,15 +52,31 @@ export default class Overview {
     let todoItem = document.createElement("div");
     todoItem.classList.add("todo-item");
 
-    // todo item
-    let newTodo = document.createElement("li");
+    // todo item (tag, title, description, and due date)
+    let newTodo = document.createElement("div");
+    newTodo.classList.add("todo-text");
+    let newTodoTag = document.createElement("div");
+    newTodoTag.classList.add("todo-tag");
+    let newTodoText = document.createElement("div");
+    let newTodoTitle = document.createElement("div");
+    newTodoTitle.classList.add("todo-title");
+    let newTodoDesc = document.createElement("div");
+    let newTodoDate = document.createElement("div");
+    newTodoDate.classList.add("todo-date");
     newTodo.classList.add(setPriority(todo.priority));
     if (todo.done) {
       newTodo.classList.add("todo-done");
     } else {
       newTodo.classList.remove("todo-done");
     }
-    newTodo.innerText = `${todo.title} - ${todo.desc} - ${todo.dueDate} - ${todo.tag}`;
+    newTodoTag.innerText = `[${todo.tag}]`;
+    newTodoTitle.innerText = `${todo.title}`;
+    newTodoDesc.innerText = `${todo.desc}`;
+    newTodoDate.innerText = `${todo.dueDate}`;
+    newTodo.appendChild(newTodoTag);
+    newTodoText.appendChild(newTodoTitle);
+    newTodoText.appendChild(newTodoDesc);
+    newTodo.appendChild(newTodoText);
 
     // done status
     let doneStatus = document.createElement("input");
@@ -87,9 +103,15 @@ export default class Overview {
       this.deleteTodo(todo);
     });
 
+    // putting date and delete button together
+    let todoEnd = document.createElement("div");
+    todoEnd.classList.add("todo-end");
+    todoEnd.appendChild(newTodoDate);
+    todoEnd.appendChild(delButton);
+
     todoItem.appendChild(doneStatus);
     todoItem.appendChild(newTodo);
-    todoItem.appendChild(delButton);
+    todoItem.appendChild(todoEnd);
     return todoItem;
   }
 
