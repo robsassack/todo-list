@@ -1,4 +1,5 @@
 import Tag from "./Tag";
+import { format, isToday } from "date-fns";
 
 export default class Overview {
   constructor() {
@@ -36,6 +37,12 @@ export default class Overview {
     });
   }
 
+  todoDateFormat(date) {
+    date = date.split("-");
+    date = format(new Date(date[0], date[1] - 1, date[2]), "MMM d, yyyy");
+    return date;
+  }
+
   // prints all todos
   printAllTodos() {
     let todoList = document.querySelector("#todo-list");
@@ -60,6 +67,24 @@ export default class Overview {
           todoList.appendChild(newTodo);
         });
       }
+    });
+    this.generateDropdown();
+  }
+
+  // print todos with today's date
+  printTodayTodos() {
+    let todoList = document.querySelector("#todo-list");
+    todoList.innerText = "";
+    this.tags.forEach((tag) => {
+      tag.getTodoList().forEach((todo) => {
+        let date = todo.dueDate;
+        date = date.split("-");
+        date = new Date(date[0], date[1] - 1, date[2]);
+        if (isToday(date)) {
+          let newTodo = this.generateTodo(todo);
+          todoList.appendChild(newTodo);
+        }
+      });
     });
     this.generateDropdown();
   }
@@ -124,7 +149,7 @@ export default class Overview {
     }
     newTodoTitle.innerText = `${todo.title}`;
     newTodoDesc.innerText = `${todo.desc}`;
-    newTodoDate.innerText = `${todo.dueDate}`;
+    newTodoDate.innerText = `${this.todoDateFormat(todo.dueDate)}`;
     newTodo.appendChild(newTodoTag);
     newTodoText.appendChild(newTodoTitle);
     newTodoText.appendChild(newTodoDesc);
