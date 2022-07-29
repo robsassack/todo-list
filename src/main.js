@@ -8,6 +8,9 @@ mainOverview.addTodo("Buy milk", "2% milk", "2020-01-01", "high", "Groceries");
 mainOverview.addTodo("Buy eggs", "One dozen eggs", "2020-01-01", "low", "Groceries");
 mainOverview.addTodo("Buy bread", "Loaf of whole wheat", "2020-01-01", "low", "Groceries");
 mainOverview.addTodo("Buy apples", "", "2020-01-01", "low", "Groceries");
+mainOverview.addTodo("Stapler", "", "2020-01-01", "low", "Office");
+mainOverview.addTodo("Pen", "", "2020-01-01", "low", "Office");
+mainOverview.addTodo("Pencil", "", "2020-01-01", "low", "Office");
 
 document.querySelector("#todo-submit").addEventListener("click", () => {
   let title = document.querySelector("#title").value;
@@ -19,6 +22,18 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
   mainOverview.addTodo(title, desc, date, priority, tag);
 
   mainOverview.printAllTodos();
+});
+
+document.querySelector("#selector").addEventListener("change", () => {
+  let selector = document.querySelector("#selector").value;
+  if (selector === "all") {
+    mainOverview.printAllTodos();
+  } else if (selector === "today") {
+    mainOverview.printTodayTodos();
+  } else if (selector.startsWith("tag:")) {
+    let tag = selector.split(":")[1];
+    mainOverview.printTagTodos(tag);
+  }
 });
 
 mainOverview.printAllTodos();

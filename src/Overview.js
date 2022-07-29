@@ -49,6 +49,26 @@ export default class Overview {
     this.generateDropdown();
   }
 
+  // print todos with given tag name
+  printTagTodos(tag) {
+    let todoList = document.querySelector("#todo-list");
+    todoList.innerText = "";
+    this.tags.forEach((item) => {
+      if (item.name === tag) {
+        item.getTodoList().forEach((todo) => {
+          let newTodo = this.generateTodo(todo);
+          todoList.appendChild(newTodo);
+        });
+      }
+    });
+    this.generateDropdown();
+  }
+
+  getCurrentSelector() {
+    let selector = document.querySelector("#selector").value;
+    return selector;
+  }
+
   generateDropdown() {
     let selector = document.querySelector("#selector");
     let currentSelector = selector.value;
@@ -70,7 +90,7 @@ export default class Overview {
       if (tag.name.trim().length) {
         let tagSelect = document.createElement("option");
         tagSelect.innerText = tag.name;
-        tagSelect.value = tag;
+        tagSelect.value = `tag:${tag.name}`;
         selector.appendChild(tagSelect);
       }
     });
@@ -160,7 +180,13 @@ export default class Overview {
         }
       });
     });
-    this.printAllTodos();
+    if (this.getCurrentSelector() === "all") {
+      this.printAllTodos();
+    } else if (this.getCurrentSelector() === "today") {
+      this.printTodayTodos();
+    } else if (this.getCurrentSelector().startsWith("tag:")) {
+      this.printTagTodos(this.getCurrentSelector().split(":")[1]);
+    }
   }
 }
 
