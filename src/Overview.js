@@ -162,7 +162,7 @@ export default class Overview {
     doneStatus.type = "checkbox";
     doneStatus.checked = todo.done;
     // change done status if clicking on checkbox or on todo item
-    [ doneStatus, todoItem ].forEach((item) => {
+    [doneStatus, todoItem].forEach((item) => {
       item.addEventListener("click", () => {
         doneStatus.checked = !doneStatus.checked;
         todo.done = doneStatus.checked;
