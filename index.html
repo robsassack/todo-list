@@ -9,29 +9,36 @@
 </head>
 
 <body>
-  <h1>To-Do</h1>
-  <div class="content">
-    <h3>New Todo</h3>
-    <input type="text" name="title" id="title" placeholder="Title">
-    <input type="text" name="desc" id="desc" placeholder="Description">
-    <input type="date" name="dueDate" id="dueDate">
-    <select name="priority" id="priority">
-      <option value="low">Low</option>
-      <option value="med">Medium</option>
-      <option value="high">High</option>
+  <div class="header">
+    <select name="selector" id="selector">
+      <option value="all">All</option>
+      <option value="today">Today</option>
+      <option disabled>──────────</option>
     </select>
-    <input type="text" name="tag" id="tag" placeholder="Tag">
-    <button type="submit" id="todo-submit">Submit</button>
+    <button id="add-todo-menu">+</button>
   </div>
 
-  <h3>Selector</h3>
-  <select name="selector" id="selector">
-    <option value="all">All</option>
-    <option value="today">Today</option>
-    <option disabled>──────────</option>
-  </select>
+  <div class="form-container">
+    <div class="todo-form">
+      <div class="todo-form-row">
+        <input type="text" name="title" id="title" placeholder="Title">
+        <input type="text" name="tag" id="tag" placeholder="Tag">
+      </div>
+      <div class="todo-form-row">
+        <textarea name="desc" id="desc" cols="36" rows="3" placeholder="Description"></textarea>
+      </div>
+      <div class="todo-form-row">
+        <input type="date" name="dueDate" id="dueDate">
+        <select name="priority" id="priority">
+          <option value="low">Low</option>
+          <option value="med">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="submit" id="todo-submit">Submit</button>
+      </div>
+    </div>
+  </div>
 
-  <h3>Todo List</h3>
   <div id="todo-list"></div>
 </body>
 <script src="main.js"></script>
