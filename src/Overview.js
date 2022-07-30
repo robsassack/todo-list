@@ -38,8 +38,10 @@ export default class Overview {
   }
 
   todoDateFormat(date) {
-    date = date.split("-");
-    date = format(new Date(date[0], date[1] - 1, date[2]), "MMM d, yyyy");
+    if (date !== "") {
+      date = date.split("-");
+      date = format(new Date(date[0], date[1] - 1, date[2]), "MMM d, yyyy");
+    }
     return date;
   }
 
