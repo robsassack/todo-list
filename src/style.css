@@ -91,6 +91,12 @@ body {
   border-color: darkgrey;
 }
 
+.done-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+
 .todo-text {
   display: flex;
   align-items: center;

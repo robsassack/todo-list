@@ -159,20 +159,19 @@ export default class Overview {
 
     // done status
     let doneStatus = document.createElement("input");
+    doneStatus.classList.add("done-status");
     doneStatus.type = "checkbox";
     doneStatus.checked = todo.done;
-    // change done status if clicking on checkbox or on todo item
-    [doneStatus, todoItem].forEach((item) => {
-      item.addEventListener("click", () => {
-        doneStatus.checked = !doneStatus.checked;
-        todo.done = doneStatus.checked;
-        if (doneStatus.checked) {
-          newTodo.classList.add("todo-done");
-        } else {
-          newTodo.classList.remove("todo-done");
-        }
-      });
-    });
+    // change done status if clicking on checkbox
+    doneStatus.addEventListener("click", () => {
+      todo.done = doneStatus.checked;
+      if (doneStatus.checked) {
+        newTodo.classList.add("todo-done");
+      } else {
+        newTodo.classList.remove("todo-done");
+      }
+    }
+    );
 
     // delete button
     let delButton = document.createElement("button");
