@@ -1,16 +1,13 @@
 import Overview from "./Overview";
-import './style.css';
+import "./style.css";
 
 const mainOverview = new Overview();
 
-// sample todos
-mainOverview.addTodo("Buy milk", "2% milk", "2020-01-01", "high", "Groceries");
-mainOverview.addTodo("Buy eggs", "One dozen eggs", "2022-07-29", "low", "Groceries");
-mainOverview.addTodo("Buy bread", "Loaf of whole wheat", "2020-01-01", "low", "Groceries");
-mainOverview.addTodo("Buy apples", "", "2022-07-29", "low", "Groceries");
-mainOverview.addTodo("Stapler", "", "2020-01-01", "low", "Office");
-mainOverview.addTodo("Pen", "", "2022-07-29", "low", "Office");
-mainOverview.addTodo("Pencil", "", "2020-01-01", "low", "Office");
+// if local storage isn't empty, load it
+if (localStorage.getItem("todoList") !== null) {
+  mainOverview.loadLocalStorage();
+  mainOverview.printAllTodos();
+}
 
 document.querySelector("#todo-submit").addEventListener("click", () => {
   let title = document.querySelector("#title").value;
@@ -22,7 +19,7 @@ document.querySelector("#todo-submit").addEventListener("click", () => {
   let priority = document.querySelector("#priority").value;
   let tag = document.querySelector("#tag").value;
 
-  mainOverview.addTodo(title, desc, date, priority, tag);
+  mainOverview.addTodo(title, desc, date, priority, tag, false);
 
   mainOverview.printAllTodos();
 
@@ -56,15 +53,17 @@ document.querySelector("#add-todo-menu").addEventListener("click", () => {
   formContainer.style.visibility = "visible";
 });
 
-document.querySelector(".form-container").addEventListener("click", function(e) {
-  if (document.querySelector(".todo-form").contains(e.target)) {
-    return;
-  } else {
-    let todoForm = document.querySelector(".todo-form");
-    let formContainer = document.querySelector(".form-container");
-    todoForm.style.visibility = "hidden";
-    formContainer.style.visibility = "hidden";
-  }
-});
+document
+  .querySelector(".form-container")
+  .addEventListener("click", function (e) {
+    if (document.querySelector(".todo-form").contains(e.target)) {
+      return;
+    } else {
+      let todoForm = document.querySelector(".todo-form");
+      let formContainer = document.querySelector(".form-container");
+      todoForm.style.visibility = "hidden";
+      formContainer.style.visibility = "hidden";
+    }
+  });
 
 mainOverview.printAllTodos();

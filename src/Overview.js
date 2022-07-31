@@ -13,6 +13,7 @@ export default class Overview {
       let newTag = new Tag(tag);
       this.tags.push(newTag);
     }
+    this.updateLocalStorage();
   }
 
   // checks if tag is unique
@@ -24,17 +25,19 @@ export default class Overview {
         repeat = false;
       }
     });
+    this.updateLocalStorage();
     return repeat;
   }
 
   // adds todo to tag
-  addTodo(title, desc, date, priority, tag) {
+  addTodo(title, desc, date, priority, tag, done) {
     this.addTag(tag);
     this.tags.forEach((item) => {
       if (item.name === tag) {
-        item.addTodo(title, desc, date, priority, tag);
+        item.addTodo(title, desc, date, priority, tag, done);
       }
     });
+    this.updateLocalStorage();
   }
 
   todoDateFormat(date) {
@@ -56,6 +59,7 @@ export default class Overview {
       });
     });
     this.generateDropdown();
+    this.updateLocalStorage();
   }
 
   // print todos with given tag name
@@ -71,6 +75,7 @@ export default class Overview {
       }
     });
     this.generateDropdown();
+    this.updateLocalStorage();
   }
 
   // print todos with today's date
@@ -89,6 +94,7 @@ export default class Overview {
       });
     });
     this.generateDropdown();
+    this.updateLocalStorage();
   }
 
   getCurrentSelector() {
@@ -122,6 +128,7 @@ export default class Overview {
       }
     });
     selector.value = currentSelector;
+    this.updateLocalStorage();
   }
 
   generateTodo(todo) {
@@ -165,13 +172,13 @@ export default class Overview {
     // change done status if clicking on checkbox
     doneStatus.addEventListener("click", () => {
       todo.done = doneStatus.checked;
+      this.updateLocalStorage();
       if (doneStatus.checked) {
         newTodo.classList.add("todo-done");
       } else {
         newTodo.classList.remove("todo-done");
       }
-    }
-    );
+    });
 
     // delete button
     let delButton = document.createElement("button");
@@ -190,6 +197,8 @@ export default class Overview {
     todoItem.appendChild(doneStatus);
     todoItem.appendChild(newTodo);
     todoItem.appendChild(todoEnd);
+
+    this.updateLocalStorage();
     return todoItem;
   }
 
@@ -213,6 +222,28 @@ export default class Overview {
     } else if (this.getCurrentSelector().startsWith("tag:")) {
       this.printTagTodos(this.getCurrentSelector().split(":")[1]);
     }
+    this.updateLocalStorage();
+  }
+
+  loadLocalStorage() {
+    let todos = JSON.parse(localStorage.getItem("todoList"));
+    todos.forEach((tag) => {
+      this.addTag(tag.name);
+      tag.list.forEach((todo) => {
+        this.addTodo(
+          todo.title,
+          todo.desc,
+          todo.dueDate,
+          todo.priority,
+          todo.tag,
+          todo.done
+        );
+      });
+    });
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem("todoList", JSON.stringify(this.tags));
   }
 }
 

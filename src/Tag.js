@@ -6,8 +6,8 @@ export default class Tag {
     this.list = [];
   }
 
-  addTodo(title, desc, date, priority, tag) {
-    let newTodo = new Todo(title, desc, date, priority, tag, false);
+  addTodo(title, desc, date, priority, tag, done) {
+    let newTodo = new Todo(title, desc, date, priority, tag, done);
     this.list.push(newTodo);
   }
 
