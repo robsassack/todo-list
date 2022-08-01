@@ -152,6 +152,7 @@ export default class Overview {
     } else {
       newTodo.classList.remove("todo-done");
     }
+
     // skip printing tag if blank
     if (todo.tag.trim().length) {
       newTodoTag.innerText = `[${todo.tag}]`;
@@ -186,6 +187,78 @@ export default class Overview {
     delButton.innerText = "X";
     delButton.addEventListener("click", () => {
       this.deleteTodo(todo);
+    });
+
+    // event listener for editing todo
+    todoItem.addEventListener("click", (e) => {
+      if (
+        e.target.classList.contains("done-status") ||
+        e.target.classList.contains("del-button")
+      ) {
+        return;
+      }
+      let todoSubmit = document.querySelector("#todo-submit");
+      let editSubmit = document.createElement("button");
+      editSubmit.classList.add("edit-submit");
+      editSubmit.innerText = "Confirm Edit";
+
+      let todoForm = document.querySelector(".todo-form");
+      let formContainer = document.querySelector(".form-container");
+      todoForm.style.visibility = "visible";
+      formContainer.style.visibility = "visible";
+
+      todoSubmit.replaceWith(editSubmit);
+
+      document.querySelector("#title").value = todo.title;
+      document.querySelector("#desc").value = todo.desc;
+      document.querySelector("#dueDate").value = todo.dueDate;
+      document.querySelector("#priority").value = todo.priority;
+      document.querySelector("#tag").value = todo.tag;
+
+      document
+        .querySelector(".form-container")
+        .addEventListener("click", function (e) {
+          if (document.querySelector(".todo-form").contains(e.target)) {
+            return;
+          } else {
+            todoForm.style.visibility = "hidden";
+            formContainer.style.visibility = "hidden";
+            editSubmit.replaceWith(todoSubmit);
+          }
+
+          document.querySelector("#title").value = "";
+          document.querySelector("#desc").value = "";
+          document.querySelector("#dueDate").value = "";
+          document.querySelector("#priority").value = "low";
+          document.querySelector("#tag").value = "";
+        });
+
+      editSubmit.addEventListener("click", () => {
+        todo.title = document.querySelector("#title").value;
+        todo.desc = document.querySelector("#desc").value;
+        todo.dueDate = document.querySelector("#dueDate").value;
+        todo.priority = document.querySelector("#priority").value;
+        todo.tag = document.querySelector("#tag").value;
+        this.updateLocalStorage();
+        todoForm.style.visibility = "hidden";
+        formContainer.style.visibility = "hidden";
+        editSubmit.replaceWith(todoSubmit);
+
+        document.querySelector("#title").value = "";
+        document.querySelector("#desc").value = "";
+        document.querySelector("#dueDate").value = "";
+        document.querySelector("#priority").value = "low";
+        document.querySelector("#tag").value = "";
+
+        if (this.getCurrentSelector() === "all") {
+          this.printAllTodos();
+        } else if (this.getCurrentSelector() === "today") {
+          this.printTodayTodos();
+        } else if (this.getCurrentSelector().startsWith("tag:")) {
+          this.printTagTodos(this.getCurrentSelector().split(":")[1]);
+        }
+        this.updateLocalStorage();
+      });
     });
 
     // putting date and delete button together

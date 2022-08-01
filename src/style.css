@@ -133,6 +133,34 @@ body {
   margin-right: 5px;
 }
 
+.edit-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.tag-edit {
+  width: 50px;
+}
+
+.title-edit, .desc-edit {
+  width: 100px;
+}
+
+.desc-edit {
+  resize: none;
+  height: 50px;
+}
+
+@media screen and (min-width: 900px) {
+  .tag-edit {
+    width: 75px;
+  }
+
+  .title-edit, .desc-edit {
+    width: 175px;
+  }
+}
+
 .high-priority {
   color: red;
 }
