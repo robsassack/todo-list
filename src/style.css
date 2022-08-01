@@ -10,7 +10,7 @@ body {
   margin: 0 auto;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 900px) {
   body {
     width: 500px;
   }
