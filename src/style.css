@@ -16,6 +16,28 @@ body {
   }
 }
 
+input {
+  border: 1px solid #ccc;
+}
+
+textarea {
+  border: 1px solid #ccc;
+}
+
+select {
+  border: 1px solid #ccc;
+}
+
+button {
+  border: 1px solid #ccc;
+  background-color: #2175b7;
+  color: white;
+}
+
+button:hover {
+  background-color: #0f4c75;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -142,7 +164,8 @@ body {
   width: 50px;
 }
 
-.title-edit, .desc-edit {
+.title-edit,
+.desc-edit {
   width: 100px;
 }
 
@@ -156,7 +179,8 @@ body {
     width: 75px;
   }
 
-  .title-edit, .desc-edit {
+  .title-edit,
+  .desc-edit {
     width: 175px;
   }
 }
