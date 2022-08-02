@@ -234,6 +234,9 @@ export default class Overview {
         });
 
       editSubmit.addEventListener("click", () => {
+        if (!document.querySelector("#title").value.trim().length) {
+          return;
+        }
         todo.title = document.querySelector("#title").value;
         todo.desc = document.querySelector("#desc").value;
         todo.dueDate = document.querySelector("#dueDate").value;
