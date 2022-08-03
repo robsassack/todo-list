@@ -1,4 +1,4 @@
-import Todo from "./Todo";
+import Todo from './Todo';
 
 export default class Tag {
   constructor(name) {
@@ -7,7 +7,7 @@ export default class Tag {
   }
 
   addTodo(title, desc, date, priority, tag, done) {
-    let newTodo = new Todo(title, desc, date, priority, tag, done);
+    const newTodo = new Todo(title, desc, date, priority, tag, done);
     this.list.push(newTodo);
   }
 

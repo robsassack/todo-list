@@ -1,5 +1,5 @@
-import Tag from "./Tag";
-import { format, isToday } from "date-fns";
+import { format, isToday } from 'date-fns';
+import Tag from './Tag';
 
 export default class Overview {
   constructor() {
@@ -10,7 +10,7 @@ export default class Overview {
   addTag(tag) {
     if (this.tags.length === 0 || this.uniqueTag(tag)) {
       // creates new tag if no tags exist or if tag is unique
-      let newTag = new Tag(tag);
+      const newTag = new Tag(tag);
       this.tags.push(newTag);
     }
     this.updateLocalStorage();
@@ -41,20 +41,20 @@ export default class Overview {
   }
 
   todoDateFormat(date) {
-    if (date !== "") {
-      date = date.split("-");
-      date = format(new Date(date[0], date[1] - 1, date[2]), "MMM d, yyyy");
+    if (date !== '') {
+      date = date.split('-');
+      date = format(new Date(date[0], date[1] - 1, date[2]), 'MMM d, yyyy');
     }
     return date;
   }
 
   // prints all todos
   printAllTodos() {
-    let todoList = document.querySelector("#todo-list");
-    todoList.innerText = "";
+    const todoList = document.querySelector('#todo-list');
+    todoList.innerText = '';
     this.tags.forEach((tag) => {
       tag.getTodoList().forEach((todo) => {
-        let newTodo = this.generateTodo(todo);
+        const newTodo = this.generateTodo(todo);
         todoList.appendChild(newTodo);
       });
     });
@@ -64,12 +64,12 @@ export default class Overview {
 
   // print todos with given tag name
   printTagTodos(tag) {
-    let todoList = document.querySelector("#todo-list");
-    todoList.innerText = "";
+    const todoList = document.querySelector('#todo-list');
+    todoList.innerText = '';
     this.tags.forEach((item) => {
       if (item.name === tag) {
         item.getTodoList().forEach((todo) => {
-          let newTodo = this.generateTodo(todo);
+          const newTodo = this.generateTodo(todo);
           todoList.appendChild(newTodo);
         });
       }
@@ -80,15 +80,15 @@ export default class Overview {
 
   // print todos with today's date
   printTodayTodos() {
-    let todoList = document.querySelector("#todo-list");
-    todoList.innerText = "";
+    const todoList = document.querySelector('#todo-list');
+    todoList.innerText = '';
     this.tags.forEach((tag) => {
       tag.getTodoList().forEach((todo) => {
         let date = todo.dueDate;
-        date = date.split("-");
+        date = date.split('-');
         date = new Date(date[0], date[1] - 1, date[2]);
         if (isToday(date)) {
-          let newTodo = this.generateTodo(todo);
+          const newTodo = this.generateTodo(todo);
           todoList.appendChild(newTodo);
         }
       });
@@ -98,30 +98,30 @@ export default class Overview {
   }
 
   getCurrentSelector() {
-    let selector = document.querySelector("#selector").value;
+    const selector = document.querySelector('#selector').value;
     return selector;
   }
 
   generateDropdown() {
-    let selector = document.querySelector("#selector");
-    let currentSelector = selector.value;
-    selector.innerText = "";
-    let allTodos = document.createElement("option");
-    allTodos.innerText = "All";
-    allTodos.value = "all";
+    const selector = document.querySelector('#selector');
+    const currentSelector = selector.value;
+    selector.innerText = '';
+    const allTodos = document.createElement('option');
+    allTodos.innerText = 'All';
+    allTodos.value = 'all';
     selector.appendChild(allTodos);
-    let todayTodos = document.createElement("option");
-    todayTodos.innerText = "Today";
-    todayTodos.value = "today";
+    const todayTodos = document.createElement('option');
+    todayTodos.innerText = 'Today';
+    todayTodos.value = 'today';
     selector.appendChild(todayTodos);
-    let separator = document.createElement("option");
-    separator.innerText = "──────────";
+    const separator = document.createElement('option');
+    separator.innerText = '──────────';
     separator.disabled = true;
     selector.appendChild(separator);
     this.tags.forEach((tag) => {
       // skip if tag name is blank
       if (tag.name.trim().length) {
-        let tagSelect = document.createElement("option");
+        const tagSelect = document.createElement('option');
         tagSelect.innerText = tag.name;
         tagSelect.value = `tag:${tag.name}`;
         selector.appendChild(tagSelect);
@@ -132,25 +132,25 @@ export default class Overview {
   }
 
   generateTodo(todo) {
-    let todoItem = document.createElement("div");
-    todoItem.classList.add("todo-item");
+    const todoItem = document.createElement('div');
+    todoItem.classList.add('todo-item');
 
     // todo item (tag, title, description, and due date)
-    let newTodo = document.createElement("div");
-    newTodo.classList.add("todo-text");
-    let newTodoTag = document.createElement("div");
-    newTodoTag.classList.add("todo-tag");
-    let newTodoText = document.createElement("div");
-    let newTodoTitle = document.createElement("div");
-    newTodoTitle.classList.add("todo-title");
-    let newTodoDesc = document.createElement("div");
-    let newTodoDate = document.createElement("div");
-    newTodoDate.classList.add("todo-date");
+    const newTodo = document.createElement('div');
+    newTodo.classList.add('todo-text');
+    const newTodoTag = document.createElement('div');
+    newTodoTag.classList.add('todo-tag');
+    const newTodoText = document.createElement('div');
+    const newTodoTitle = document.createElement('div');
+    newTodoTitle.classList.add('todo-title');
+    const newTodoDesc = document.createElement('div');
+    const newTodoDate = document.createElement('div');
+    newTodoDate.classList.add('todo-date');
     newTodo.classList.add(setPriority(todo.priority));
     if (todo.done) {
-      newTodo.classList.add("todo-done");
+      newTodo.classList.add('todo-done');
     } else {
-      newTodo.classList.remove("todo-done");
+      newTodo.classList.remove('todo-done');
     }
 
     // skip printing tag if blank
@@ -166,107 +166,106 @@ export default class Overview {
     newTodo.appendChild(newTodoText);
 
     // done status
-    let doneStatus = document.createElement("input");
-    doneStatus.classList.add("done-status");
-    doneStatus.type = "checkbox";
+    const doneStatus = document.createElement('input');
+    doneStatus.classList.add('done-status');
+    doneStatus.type = 'checkbox';
     doneStatus.checked = todo.done;
     // change done status if clicking on checkbox
-    doneStatus.addEventListener("click", () => {
+    doneStatus.addEventListener('click', () => {
       todo.done = doneStatus.checked;
       this.updateLocalStorage();
       if (doneStatus.checked) {
-        newTodo.classList.add("todo-done");
+        newTodo.classList.add('todo-done');
       } else {
-        newTodo.classList.remove("todo-done");
+        newTodo.classList.remove('todo-done');
       }
     });
 
     // delete button
-    let delButton = document.createElement("button");
-    delButton.classList.add("del-button");
-    delButton.innerText = "X";
-    delButton.addEventListener("click", () => {
+    const delButton = document.createElement('button');
+    delButton.classList.add('del-button');
+    delButton.innerText = 'X';
+    delButton.addEventListener('click', () => {
       this.deleteTodo(todo);
     });
 
     // event listener for editing todo
-    todoItem.addEventListener("click", (e) => {
+    todoItem.addEventListener('click', (e) => {
       if (
-        e.target.classList.contains("done-status") ||
-        e.target.classList.contains("del-button")
+        e.target.classList.contains('done-status')
+        || e.target.classList.contains('del-button')
       ) {
         return;
       }
-      let todoSubmit = document.querySelector("#todo-submit");
-      let editSubmit = document.createElement("button");
-      editSubmit.classList.add("edit-submit");
-      editSubmit.innerText = "Confirm Edit";
+      const todoSubmit = document.querySelector('#todo-submit');
+      const editSubmit = document.createElement('button');
+      editSubmit.classList.add('edit-submit');
+      editSubmit.innerText = 'Confirm Edit';
 
-      let todoForm = document.querySelector(".todo-form");
-      let formContainer = document.querySelector(".form-container");
-      todoForm.style.visibility = "visible";
-      formContainer.style.visibility = "visible";
+      const todoForm = document.querySelector('.todo-form');
+      const formContainer = document.querySelector('.form-container');
+      todoForm.style.visibility = 'visible';
+      formContainer.style.visibility = 'visible';
 
       todoSubmit.replaceWith(editSubmit);
 
-      document.querySelector("#title").value = todo.title;
-      document.querySelector("#desc").value = todo.desc;
-      document.querySelector("#dueDate").value = todo.dueDate;
-      document.querySelector("#priority").value = todo.priority;
-      document.querySelector("#tag").value = todo.tag;
+      document.querySelector('#title').value = todo.title;
+      document.querySelector('#desc').value = todo.desc;
+      document.querySelector('#dueDate').value = todo.dueDate;
+      document.querySelector('#priority').value = todo.priority;
+      document.querySelector('#tag').value = todo.tag;
 
       document
-        .querySelector(".form-container")
-        .addEventListener("click", function (e) {
-          if (document.querySelector(".todo-form").contains(e.target)) {
+        .querySelector('.form-container')
+        .addEventListener('click', (e) => {
+          if (document.querySelector('.todo-form').contains(e.target)) {
             return;
-          } else {
-            todoForm.style.visibility = "hidden";
-            formContainer.style.visibility = "hidden";
-            editSubmit.replaceWith(todoSubmit);
           }
+          todoForm.style.visibility = 'hidden';
+          formContainer.style.visibility = 'hidden';
+          editSubmit.replaceWith(todoSubmit);
 
-          document.querySelector("#title").value = "";
-          document.querySelector("#desc").value = "";
-          document.querySelector("#dueDate").value = "";
-          document.querySelector("#priority").value = "low";
-          document.querySelector("#tag").value = "";
+          document.querySelector('#title').value = '';
+          document.querySelector('#desc').value = '';
+          document.querySelector('#dueDate').value = '';
+          document.querySelector('#priority').value = 'low';
+          document.querySelector('#tag').value = '';
         });
 
-      editSubmit.addEventListener("click", () => {
-        if (!document.querySelector("#title").value.trim().length) {
+      editSubmit.addEventListener('click', () => {
+        if (!document.querySelector('#title').value.trim().length) {
           return;
         }
-        todo.title = document.querySelector("#title").value;
-        todo.desc = document.querySelector("#desc").value;
-        todo.dueDate = document.querySelector("#dueDate").value;
-        todo.priority = document.querySelector("#priority").value;
-        todo.tag = document.querySelector("#tag").value;
+        todo.title = document.querySelector('#title').value;
+        todo.desc = document.querySelector('#desc').value;
+        todo.dueDate = document.querySelector('#dueDate').value;
+        todo.priority = document.querySelector('#priority').value;
+        todo.tag = document.querySelector('#tag').value;
         this.updateLocalStorage();
-        todoForm.style.visibility = "hidden";
-        formContainer.style.visibility = "hidden";
+        todoForm.style.visibility = 'hidden';
+        formContainer.style.visibility = 'hidden';
         editSubmit.replaceWith(todoSubmit);
 
-        document.querySelector("#title").value = "";
-        document.querySelector("#desc").value = "";
-        document.querySelector("#dueDate").value = "";
-        document.querySelector("#priority").value = "low";
-        document.querySelector("#tag").value = "";
+        document.querySelector('#title').value = '';
+        document.querySelector('#desc').value = '';
+        document.querySelector('#dueDate').value = '';
+        document.querySelector('#priority').value = 'low';
+        document.querySelector('#tag').value = '';
 
-        if (this.getCurrentSelector() === "all") {
+        if (this.getCurrentSelector() === 'all') {
           this.printAllTodos();
-        } else if (this.getCurrentSelector() === "today") {
+        } else if (this.getCurrentSelector() === 'today') {
           this.printTodayTodos();
-        } else if (this.getCurrentSelector().startsWith("tag:")) {
-          this.printTagTodos(this.getCurrentSelector().split(":")[1]);
+        } else if (this.getCurrentSelector().startsWith('tag:')) {
+          this.printTagTodos(this.getCurrentSelector().split(':')[1]);
         }
         this.updateLocalStorage();
       });
     });
 
     // putting date and delete button together
-    let todoEnd = document.createElement("div");
-    todoEnd.classList.add("todo-end");
+    const todoEnd = document.createElement('div');
+    todoEnd.classList.add('todo-end');
     todoEnd.appendChild(newTodoDate);
     todoEnd.appendChild(delButton);
 
@@ -291,18 +290,18 @@ export default class Overview {
         }
       });
     });
-    if (this.getCurrentSelector() === "all") {
+    if (this.getCurrentSelector() === 'all') {
       this.printAllTodos();
-    } else if (this.getCurrentSelector() === "today") {
+    } else if (this.getCurrentSelector() === 'today') {
       this.printTodayTodos();
-    } else if (this.getCurrentSelector().startsWith("tag:")) {
-      this.printTagTodos(this.getCurrentSelector().split(":")[1]);
+    } else if (this.getCurrentSelector().startsWith('tag:')) {
+      this.printTagTodos(this.getCurrentSelector().split(':')[1]);
     }
     this.updateLocalStorage();
   }
 
   loadLocalStorage() {
-    let todos = JSON.parse(localStorage.getItem("todoList"));
+    const todos = JSON.parse(localStorage.getItem('todoList'));
     todos.forEach((tag) => {
       this.addTag(tag.name);
       tag.list.forEach((todo) => {
@@ -312,25 +311,25 @@ export default class Overview {
           todo.dueDate,
           todo.priority,
           todo.tag,
-          todo.done
+          todo.done,
         );
       });
     });
   }
 
   updateLocalStorage() {
-    localStorage.setItem("todoList", JSON.stringify(this.tags));
+    localStorage.setItem('todoList', JSON.stringify(this.tags));
   }
 }
 
 // sets priority class
 function setPriority(priority) {
   switch (priority) {
-    case "high":
-      return "high-priority";
-    case "med":
-      return "med-priority";
-    case "low":
-      return "low-priority";
+    case 'high':
+      return 'high-priority';
+    case 'med':
+      return 'med-priority';
+    case 'low':
+      return 'low-priority';
   }
 }

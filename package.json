@@ -16,13 +16,14 @@
     "url": "https://github.com/robsassack/todo-list/issues"
   },
   "homepage": "https://github.com/robsassack/todo-list#readme",
-  "devDependencies": {
+  "dependencies": {
     "css-loader": "^6.7.1",
     "date-fns": "^2.29.1",
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "style-loader": "^3.3.1",
-    "webpack-cli": "^4.10.0"
-  },
-  "dependencies": {
+    "webpack-cli": "^4.10.0",
     "webpack": "^5.73.0"
   }
 }
