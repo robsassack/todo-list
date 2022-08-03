@@ -7,4 +7,28 @@ export default class Todo {
     this.tag = tag;
     this.done = done;
   }
+
+  setTitle(title) {
+    this.title = title;
+  }
+
+  setDesc(desc) {
+    this.desc = desc;
+  }
+
+  setDueDate(dueDate) {
+    this.dueDate = dueDate;
+  }
+
+  setPriority(priority) {
+    this.priority = priority;
+  }
+
+  setTag(tag) {
+    this.tag = tag;
+  }
+
+  setDone(done) {
+    this.done = done;
+  }
 }

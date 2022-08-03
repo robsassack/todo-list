@@ -1,5 +1,8 @@
-import { format, isToday } from 'date-fns';
+import { isToday } from 'date-fns';
+import todoDateFormat from './todoDateFormat';
+import setPriority from './setPriority';
 import Tag from './Tag';
+import getCurrentSelector from './getCurrentSelector';
 
 export default class Overview {
   constructor() {
@@ -38,14 +41,6 @@ export default class Overview {
       }
     });
     this.updateLocalStorage();
-  }
-
-  todoDateFormat(date) {
-    if (date !== '') {
-      date = date.split('-');
-      date = format(new Date(date[0], date[1] - 1, date[2]), 'MMM d, yyyy');
-    }
-    return date;
   }
 
   // prints all todos
@@ -95,11 +90,6 @@ export default class Overview {
     });
     this.generateDropdown();
     this.updateLocalStorage();
-  }
-
-  getCurrentSelector() {
-    const selector = document.querySelector('#selector').value;
-    return selector;
   }
 
   generateDropdown() {
@@ -159,7 +149,7 @@ export default class Overview {
     }
     newTodoTitle.innerText = `${todo.title}`;
     newTodoDesc.innerText = `${todo.desc}`;
-    newTodoDate.innerText = `${this.todoDateFormat(todo.dueDate)}`;
+    newTodoDate.innerText = `${todoDateFormat(todo.dueDate)}`;
     newTodo.appendChild(newTodoTag);
     newTodoText.appendChild(newTodoTitle);
     newTodoText.appendChild(newTodoDesc);
@@ -172,7 +162,7 @@ export default class Overview {
     doneStatus.checked = todo.done;
     // change done status if clicking on checkbox
     doneStatus.addEventListener('click', () => {
-      todo.done = doneStatus.checked;
+      todo.setDone(doneStatus.checked);
       this.updateLocalStorage();
       if (doneStatus.checked) {
         newTodo.classList.add('todo-done');
@@ -217,8 +207,8 @@ export default class Overview {
 
       document
         .querySelector('.form-container')
-        .addEventListener('click', (e) => {
-          if (document.querySelector('.todo-form').contains(e.target)) {
+        .addEventListener('click', (container) => {
+          if (document.querySelector('.todo-form').contains(container.target)) {
             return;
           }
           todoForm.style.visibility = 'hidden';
@@ -236,11 +226,11 @@ export default class Overview {
         if (!document.querySelector('#title').value.trim().length) {
           return;
         }
-        todo.title = document.querySelector('#title').value;
-        todo.desc = document.querySelector('#desc').value;
-        todo.dueDate = document.querySelector('#dueDate').value;
-        todo.priority = document.querySelector('#priority').value;
-        todo.tag = document.querySelector('#tag').value;
+        todo.setTitle(document.querySelector('#title').value);
+        todo.setDesc(document.querySelector('#desc').value);
+        todo.setDueDate(document.querySelector('#dueDate').value);
+        todo.setPriority(document.querySelector('#priority').value);
+        todo.setTag(document.querySelector('#tag').value);
         this.updateLocalStorage();
         todoForm.style.visibility = 'hidden';
         formContainer.style.visibility = 'hidden';
@@ -252,12 +242,12 @@ export default class Overview {
         document.querySelector('#priority').value = 'low';
         document.querySelector('#tag').value = '';
 
-        if (this.getCurrentSelector() === 'all') {
+        if (getCurrentSelector() === 'all') {
           this.printAllTodos();
-        } else if (this.getCurrentSelector() === 'today') {
+        } else if (getCurrentSelector() === 'today') {
           this.printTodayTodos();
-        } else if (this.getCurrentSelector().startsWith('tag:')) {
-          this.printTagTodos(this.getCurrentSelector().split(':')[1]);
+        } else if (getCurrentSelector().startsWith('tag:')) {
+          this.printTagTodos(getCurrentSelector().split(':')[1]);
         }
         this.updateLocalStorage();
       });
@@ -290,12 +280,12 @@ export default class Overview {
         }
       });
     });
-    if (this.getCurrentSelector() === 'all') {
+    if (getCurrentSelector() === 'all') {
       this.printAllTodos();
-    } else if (this.getCurrentSelector() === 'today') {
+    } else if (getCurrentSelector() === 'today') {
       this.printTodayTodos();
-    } else if (this.getCurrentSelector().startsWith('tag:')) {
-      this.printTagTodos(this.getCurrentSelector().split(':')[1]);
+    } else if (getCurrentSelector().startsWith('tag:')) {
+      this.printTagTodos(getCurrentSelector().split(':')[1]);
     }
     this.updateLocalStorage();
   }
@@ -319,17 +309,5 @@ export default class Overview {
 
   updateLocalStorage() {
     localStorage.setItem('todoList', JSON.stringify(this.tags));
-  }
-}
-
-// sets priority class
-function setPriority(priority) {
-  switch (priority) {
-    case 'high':
-      return 'high-priority';
-    case 'med':
-      return 'med-priority';
-    case 'low':
-      return 'low-priority';
   }
 }
